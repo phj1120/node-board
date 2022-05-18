@@ -16,8 +16,13 @@ router.post("/list", async function (req, res, next) {
   var offset = pager.getSkip(page);
 
   var boardList = await Board.findAll({
+    // join 해서 가져와라
+    include: {
+      model: User,
+      as: "writeUser",
+    },
     limit: itemPerPage,
-    orders: [["writeTime", "DESC"]],
+    order: [["writeTime", "DESC"]],
     offset: offset,
   });
 
@@ -68,7 +73,13 @@ router.post("/list", async function (req, res, next) {
 module.exports = router;
 
 router.post("/write", async function (req, res, next) {
+  if (req.session.user) {
+    req.body.userId = req.session.user.id;
+  }
+
   var body = req.body;
+  console.log("body", body);
+
   var result = await Board.create(body);
   res.json({
     result: "ok",

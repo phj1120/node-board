@@ -15,7 +15,11 @@ http://localhost:8080/#/board
         <tr v-for="board in boardList" :key="board.id">
           <td class="text-center">{{ board.bno }}</td>
           <td>{{ board.title }}</td>
-          <td class="text-center">{{ board.writer }}</td>
+          <td class="text-center">
+            <div v-if="board.writeUser">
+              {{ board.writeUser.name }}
+            </div>
+          </td>
           <td class="text-center">{{ board.viewCnt }}</td>
           <!-- <td class="text-center">{{ dateFormat(board.writeTime) }}</td> -->
           <td class="text-center">{{ board.writeTime | dateFormat }}</td>

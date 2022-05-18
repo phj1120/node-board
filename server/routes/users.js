@@ -58,6 +58,10 @@ router.post("/login", async function (req, res, next) {
     return;
   }
 
+  // Loing 성공 시 session 에 값 저장
+  req.session.user = user;
+  console.log(user);
+
   res.json({
     result: "ok",
   });

@@ -4,6 +4,18 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
+var session = require("express-session");
+var MySQLStore = require("express-mysql-session")(session);
+var options = {
+  host: "localhost",
+  port: 3306,
+  user: "itc801",
+  password: "itc801",
+  database: "itc_board",
+};
+// 인증에 대한 정보가 저장 되는 저장소
+var sessionStore = new MySQLStore(options);
+
 // Sequelize 클래스 전체
 // sequelize DB 에 연결된 객체
 // 로 설정해 줌
@@ -23,6 +35,16 @@ var usersRouter = require("./routes/users");
 var boardRouter = require("./routes/board");
 
 var app = express();
+
+app.use(
+  session({
+    key: "session_key", // 쿠키에 저장할 세션 id 이름
+    secret: "session_cookie_secret", // 암호화 할 때 secret 을 같이 넣어 암호화
+    store: sessionStore,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
