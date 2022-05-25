@@ -5,21 +5,43 @@ http://localhost:8080/
     <div class="form">
       <v-text-field v-model="form.id" label="아이디"></v-text-field>
       <v-text-field
+        class="mt-2"
         v-model="form.passwd"
         label="비밀번호"
         type="password"
       ></v-text-field>
-      <v-btn @click="login" class="mr-2">로그인</v-btn>
-      <v-btn @click="moveJoin">회원가입</v-btn>
+      <mjc-btn
+        :background="loginBtnBg"
+        fontcolor="white"
+        @click="login"
+        @changeBackground="loginBtnBackground"
+      >
+        로그인
+      </mjc-btn>
+      <mjc-btn
+        class="mt-2"
+        background="blue"
+        fontcolor="white"
+        @click="moveJoin"
+      >
+        회원가입
+      </mjc-btn>
     </div>
   </v-layout>
 </template>
 
 <script>
+import MjcBtn from "@/components/MjcBtn";
 export default {
+  components: {
+    MjcBtn,
+  },
+
   name: "Home",
+
   data() {
     return {
+      loginBtnBg: "#ff0000",
       name: "",
       form: {
         id: "",
@@ -28,7 +50,12 @@ export default {
     };
   },
   methods: {
-    login() {
+    loginBtnBackground(background) {
+      this.loginBtnBg = background;
+    },
+
+    login(background) {
+      console.log(background);
       if (this.form.id == "") {
         window.alert("아이디를 입력하세요.");
         return;

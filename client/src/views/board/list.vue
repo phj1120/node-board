@@ -1,31 +1,34 @@
 http://localhost:8080/#/board
 <template>
-  <div>
-    <table class="root">
-      <thead>
-        <tr>
-          <th width="80px">no</th>
-          <th width="100px">제목</th>
-          <th width="100px">작성자</th>
-          <th width="80px">조회수</th>
-          <th width="120px">작성일</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="board in boardList" :key="board.id">
-          <td class="text-center">{{ board.bno }}</td>
-          <td>{{ board.title }}</td>
-          <td class="text-center">
-            <div v-if="board.writeUser">
-              {{ board.writeUser.name }}
-            </div>
-          </td>
-          <td class="text-center">{{ board.viewCnt }}</td>
-          <!-- <td class="text-center">{{ dateFormat(board.writeTime) }}</td> -->
-          <td class="text-center">{{ board.writeTime | dateFormat }}</td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="root">
+    <mjc-header></mjc-header>
+    <div>
+      <table class="table-container">
+        <thead>
+          <tr>
+            <th width="80px">no</th>
+            <th width="100px">제목</th>
+            <th width="100px">작성자</th>
+            <th width="80px">조회수</th>
+            <th width="120px">작성일</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="board in boardList" :key="board.id">
+            <td class="text-center">{{ board.bno }}</td>
+            <td>{{ board.title }}</td>
+            <td class="text-center">
+              <div v-if="board.writeUser">
+                {{ board.writeUser.name }}
+              </div>
+            </td>
+            <td class="text-center">{{ board.viewCnt }}</td>
+            <!-- <td class="text-center">{{ dateFormat(board.writeTime) }}</td> -->
+            <td class="text-center">{{ board.writeTime | dateFormat }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <div class="text-center">
       <v-pagination
         v-model="page"
@@ -41,7 +44,14 @@ http://localhost:8080/#/board
 
 <script>
 import moment from "moment";
+import MjcHeader from "@/components/MjcHeader";
+
 export default {
+  components: {
+    MjcHeader: MjcHeader,
+    // MjcHeader,
+    // MjcHeader2: MjcHeader,
+  },
   data() {
     return {
       page: 1,
@@ -82,7 +92,7 @@ export default {
 
 <style scoped>
 /* 지금 list.vue 에서만 적용되는 CSS 다 */
-.root {
+.table-container {
   width: 700px;
   margin: 0 auto;
 }
