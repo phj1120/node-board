@@ -86,3 +86,104 @@ router.post("/write", async function (req, res, next) {
   });
   return;
 });
+
+router.post("/item", async function (req, res) {
+  var bno = req.body.bno;
+
+  var board = await Board.findOne({
+    where: {
+      bno: bno,
+    },
+    // model.js 에서 belongsTo 정의 해줬기에 ㄱㄴ
+    include: {
+      model: User,
+      as: "writeUser",
+      attributes: ["id", "name"],
+    },
+  });
+  res.json({
+    board: board,
+  });
+});
+
+router.post("/remove", async (req, res) => {
+  var bno = req.body.bno;
+
+  if (!req.session.user) {
+    return res.json({
+      result: "fail",
+      msg: "로그인이 필요합니다.",
+    });
+  }
+
+  var board = await Board.findOne({
+    where: {
+      bno: bno,
+    },
+  });
+
+  // 로그인된 사용자와 삭제하려는 게시물의 작성자가 같은지 확인
+  if (board.userId == req.session.user.id) {
+    await Board.destroy({
+      where: {
+        bno: bno,
+      },
+    });
+    res.json({
+      result: "ok",
+    });
+  } else {
+    return res.json({
+      result: "fail",
+      msg: "삭제할 수 있는 권한이 없습니다.",
+    });
+  }
+  console.log(board);
+});
+
+router.post("/modify", async (req, res) => {
+  var bno = req.body.bno;
+
+  if (!req.session.user) {
+    return res.json({
+      result: "fail",
+      msg: "로그인이 필요합니다.",
+    });
+  }
+
+  var board = await Board.findOne({
+    where: {
+      bno: bno,
+    },
+  });
+
+  console.log("-------");
+  console.log(board.userId);
+  console.log(req.session.user.id);
+  console.log("-------");
+
+  // 로그인된 사용자와 수정하려는 게시물의 작성자가 같은지 확인
+  if (board.userId == req.session.user.id) {
+    await Board.update(
+      {
+        title: req.body.title,
+        body: req.body.body,
+      },
+      {
+        where: {
+          bno: bno,
+        },
+      }
+    );
+    res.json({
+      result: "ok",
+    });
+  } else {
+    console.log("-------");
+    res.json({
+      result: "fail",
+      msg: "수정할 수 있는 권한이 없습니다.",
+    });
+  }
+  console.log(board);
+});
