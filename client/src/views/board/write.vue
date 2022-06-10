@@ -39,13 +39,10 @@ export default {
         return;
       }
 
-      // TODO : 서버에 전송해서 글 쓰기
       this.axios.post("/api/board/write", this.form).then((result) => {
         console.log(result);
       });
       this.$router.push("/board");
-
-      // this.$router.go(-1); // 뒤로가기
     },
   },
 };

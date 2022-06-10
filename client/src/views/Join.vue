@@ -53,7 +53,6 @@ export default {
       }
 
       this.axios.post("/api/users/join", this.form).then((result) => {
-        console.log(result.data);
         if (result.data.result == "ok") {
           window.alert("회원가입 완료");
           this.$router.push("/");

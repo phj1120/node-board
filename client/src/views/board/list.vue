@@ -40,7 +40,7 @@ http://localhost:8080/#/board
         :length="pageCount"
       ></v-pagination>
     </div>
-    <div class="text-right mt-2">
+    <div v-if="$store.state.user" class="text-right mt-2">
       <v-btn color="primary" @click="moveWrite">글쓰기</v-btn>
     </div>
   </div>
@@ -70,7 +70,6 @@ export default {
   },
   mounted() {
     this.axios.post("/api/board/list").then((result) => {
-      console.log(result);
       this.boardList = result.data.boardList;
       this.pageCount = result.data.pageCount;
     });
@@ -78,7 +77,6 @@ export default {
 
   methods: {
     clickBoardItem(board) {
-      console.log(board);
       this.$router.push("/board/item/" + board.bno);
     },
 

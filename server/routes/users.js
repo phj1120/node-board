@@ -44,6 +44,7 @@ router.post("/login", async function (req, res, next) {
   console.log(body);
 
   var user = await User.findOne({
+    attributes: ["id", "name"],
     where: {
       id: req.body.id,
       password: req.body.password,
@@ -64,6 +65,7 @@ router.post("/login", async function (req, res, next) {
 
   res.json({
     result: "ok",
+    user: user,
   });
 });
 
@@ -105,5 +107,31 @@ router.post("/login", async function (req, res, next) {
 //     }
 //   });
 // });
+
+// 로그인 된 사용자 정보
+router.post("/info", async (req, res) => {
+  // 로그인 되어 있을 경우
+  if (req.session.user) {
+    res.json({
+      result: "ok",
+      user: req.session.user,
+    });
+  }
+
+  // 로그인 되어있지 않을 경우
+  else {
+    res.json({
+      result: "fail",
+    });
+  }
+});
+
+// 로그아웃
+router.post("/logout", async (req, res) => {
+  req.session.destroy();
+  res.json({
+    result: "ok",
+  });
+});
 
 module.exports = router;

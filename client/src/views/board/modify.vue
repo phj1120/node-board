@@ -36,7 +36,6 @@ export default {
       this.axios
         .post("/api/board/item", { bno: this.$route.params.bno })
         .then((result) => {
-          console.log(result);
           this.form = result.data.board;
         });
     },

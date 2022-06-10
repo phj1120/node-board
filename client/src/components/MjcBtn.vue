@@ -14,10 +14,6 @@
 <script>
 export default {
   props: ["background", "fontcolor"],
-  mounted() {
-    console.log(this.background);
-    console.log(this.fontcolor);
-  },
   methods: {
     btnClick() {
       this.$emit("click");

@@ -54,8 +54,7 @@ export default {
       this.loginBtnBg = background;
     },
 
-    login(background) {
-      console.log(background);
+    login() {
       if (this.form.id == "") {
         window.alert("아이디를 입력하세요.");
         return;
@@ -71,10 +70,10 @@ export default {
           password: this.form.passwd,
         })
         .then((result) => {
-          // result.status===404 으로 하니 아예 여기 안 들어옴
-          console.log(result.data.result);
           if (result.data.result === "ok") {
             this.boardList = result.data;
+            this.$store.commit("setUser", result.data.user);
+            console.log(this.$store);
             this.$router.push("/board");
           } else if (result.data.result === "fail") {
             window.alert(result.data.message);

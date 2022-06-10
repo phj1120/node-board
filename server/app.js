@@ -26,6 +26,7 @@ global.sequelize = new Sequelize("itc_board", "itc801", "itc801", {
   // 'database', 'username', 'password'
   host: "localhost",
   dialect: "mysql",
+  logging: false,
 });
 
 require("./model.js");
@@ -50,12 +51,14 @@ app.use(
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
 
+// console.log(__dirname); // 프로젝트 경로
+// console.log(__filename); // 파일 경로
+
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
-
+app.use(express.static(path.join(__dirname, "../client/dist"))); // 정적인 파일이 어디에 있는지
 app.use("/", indexRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/board", boardRouter);

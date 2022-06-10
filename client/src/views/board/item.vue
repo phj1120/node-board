@@ -32,7 +32,6 @@ export default {
   },
   methods: {
     getBoardItem() {
-      console.log(this.$route.params.bno);
       this.axios
         .post("/api/board/item", { bno: this.$route.params.bno })
         .then((result) => {
@@ -40,7 +39,6 @@ export default {
         });
     },
     removeBoard() {
-      console.log(this.$route.params);
       this.axios
         .post("/api/board/remove", {
           bno: this.$route.params.bno,
@@ -57,7 +55,6 @@ export default {
       // TODO 글 작성자와 로그인한 사용자가 같을 경우에만 수정 창으로 이동하도록
       // 쿠키에는 session Id 만 있고 session 을 DB 에 관리
       // axios 로 expresss 에 사용자 아이디 가져올 수 있도록 메서드 추가.
-      console.log(this.board.userId);
       this.$router.push("/board/modify/" + this.board.bno);
     },
   },
