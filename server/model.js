@@ -40,6 +40,7 @@ global.Board = sequelize.define("Board", {
   },
 });
 
+// joing
 Board.belongsTo(User, {
   foreignKey: "userId",
   as: "writeUser",

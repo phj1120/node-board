@@ -15,7 +15,6 @@ http://localhost:8080/#/board/write
 
 <script>
 import MjcHeader from "@/components/MjcHeader";
-import axios from "axios";
 export default {
   components: {
     MjcHeader,
@@ -40,7 +39,6 @@ export default {
       }
 
       this.axios.post("/api/board/write", this.form).then((result) => {
-        console.log(result);
       });
       this.$router.push("/board");
     },

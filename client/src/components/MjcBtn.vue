@@ -1,12 +1,8 @@
 <template>
-  <div
-    class="mjc-btn"
-    :style="{
-      background: background || 'black',
-      color: fontcolor || 'whites',
-    }"
-    @click="btnClick"
-  >
+  <div class="mjc-btn" :style="{
+    background: background || 'black',
+    color: fontcolor || 'whites',
+  }" @click="btnClick">
     <slot></slot>
   </div>
 </template>

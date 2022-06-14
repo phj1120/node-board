@@ -8,6 +8,7 @@
       </div>
       <div class="board">내용 : {{ board.body }}</div>
 
+
       <div class="text-center">
         <v-btn color="primary" @click="modifyBoard">수정</v-btn>
         <v-btn color="error" @click="removeBoard">삭제</v-btn>
@@ -61,4 +62,5 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+</style>

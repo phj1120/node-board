@@ -4,26 +4,11 @@ http://localhost:8080/
   <v-layout class="background" align-center justify-center>
     <div class="form">
       <v-text-field v-model="form.id" label="아이디"></v-text-field>
-      <v-text-field
-        class="mt-2"
-        v-model="form.passwd"
-        label="비밀번호"
-        type="password"
-      ></v-text-field>
-      <mjc-btn
-        :background="loginBtnBg"
-        fontcolor="white"
-        @click="login"
-        @changeBackground="loginBtnBackground"
-      >
+      <v-text-field class="mt-2" v-model="form.passwd" label="비밀번호" type="password"></v-text-field>
+      <mjc-btn :background="loginBtnBg" fontcolor="white" @click="login" @changeBackground="loginBtnBackground">
         로그인
       </mjc-btn>
-      <mjc-btn
-        class="mt-2"
-        background="blue"
-        fontcolor="white"
-        @click="moveJoin"
-      >
+      <mjc-btn class="mt-2" background="blue" fontcolor="white" @click="moveJoin">
         회원가입
       </mjc-btn>
     </div>
@@ -73,7 +58,6 @@ export default {
           if (result.data.result === "ok") {
             this.boardList = result.data;
             this.$store.commit("setUser", result.data.user);
-            console.log(this.$store);
             this.$router.push("/board");
           } else if (result.data.result === "fail") {
             window.alert(result.data.message);
@@ -91,6 +75,7 @@ export default {
 .background {
   background: #eeeeee;
 }
+
 .background .form {
   background: white;
   padding: 20px;
